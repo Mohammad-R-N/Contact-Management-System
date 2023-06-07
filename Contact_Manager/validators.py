@@ -2,10 +2,10 @@ import re
 from utils import *
 
 def username_validation(username):
-    pass
+    return True
 
 def password_validation(password):
-    pass
+    return True
 
 
 def email_validation():
