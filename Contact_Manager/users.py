@@ -2,7 +2,6 @@ from validators import *
 from utils import *
 from dataclasses import dataclass
 import pickle
-import pathlib
 import os
 
 @dataclass
@@ -16,16 +15,16 @@ class User:
         if not username_validation(username):
             print("This name is taken.")
         elif not password_validation(password):
-            print("Password'lenght should be atleast 8 with numbers and special chars")
+            print("Password's lenght should be atleast 8 with numbers and special chars")
         else:
             user_file=os.path.join("data","users.pickle")
-            info_file=os.Path(user_file)
-            if info_file:
+            if os.path.exists(user_file):
                 with open(user_file,"rb") as file:
                     info = pickle.load(file)
                     info.append(cls(username,password))
                     with open(user_file,"wb")as file2:
-                        pickle.dump(user_file,file2)
+                        pickle.dump(info,file2)
+                    
             else:
                 with open(user_file,"wb") as file:
                     pickle.dump([cls(username,password)],file)
@@ -33,13 +32,42 @@ class User:
             print("Account created successfully")
             
         
-    @staticmethod
-    def authenticate_user(username,password):
-        #? bool
-        pass
+    @classmethod
+    def authenticate_user(cls,username,password):
+        user_file=os.path.join("data","users.pickle")
+        if os.path.exists(user_file):
+            with open(user_file,"rb") as file:
+                user_data=pickle.load(file)
+                if cls(username,password) in user_data:
+                    return True
+        else:
+            return False
 
-    def modify_user():
-        islogin=User.authenticate_user()
+    @classmethod
+    def modify_user(cls):
+        username=get_input("Enter your username: ")
+        password=get_input("Enter your password: ")
+        islogin = User.authenticate_user(username,password)
         if islogin:
-            new_username=get_input()
-            new_password=get_input()
+            user_file=os.path.join("data","users.pickle")
+            print("welcome!")
+            with open(user_file,"rb") as file:
+                user_data=pickle.load(file)
+                user_index=user_data.index(cls(username,password))
+
+                new_username=get_input("Enter your new username: ")
+                new_password=get_input("Enter your new Password: ")
+                if not username_validation(username):
+                    print("This name is taken.")
+                elif not password_validation(password):
+                    print("Password's lenght should be atleast 8 with numbers and special chars")
+                else:
+                    user_data[user_index].username=new_username
+                    user_data[user_index].password=new_password
+                    with open (user_file,"wb") as file:
+                        pickle.dump(user_data,file)
+
+                    print("Account modified successfully")
+                
+        else:
+            print("Invalid user information!")
