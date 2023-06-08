@@ -9,17 +9,20 @@ def username_validation(username):
     isvalid=False
     if os.path.exists(user_file):
         with open (user_file,"rb")as file:
-            user_data=pickle.load()
-            for i in user_data:
-                if i.username == username:
+            user_data=pickle.load(file)
+            print("VALIDATION        ",user_data)
+            for find in user_data:
+                if find.username == username:
                     istaken = True
         if istaken:
-            print("This username is taken.")
+            return False
         else:
             isvalid=re.match(r"^[a-zA-Z][a-zA-Z0-9_.-]{,20}$",username)
     else:
         isvalid=re.match(r"^[a-zA-Z][a-zA-Z0-9_.-]{,20}$",username)
     return bool(isvalid)
+
+
 
 def password_validation(password):
     isvalid=re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,}$",password)

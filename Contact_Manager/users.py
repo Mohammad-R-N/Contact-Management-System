@@ -49,24 +49,32 @@ class User:
         password=get_input("Enter your password: ")
         islogin = User.authenticate_user(username,password)
         if islogin:
+            contact_file=os.path.join("data","contacts.pickle")
             user_file=os.path.join("data","users.pickle")
             print("welcome!")
             with open(user_file,"rb") as file:
                 user_data=pickle.load(file)
                 user_index=user_data.index(cls(username,password))
-
+                print("BEFORE NEW            ",user_data)
                 new_username=get_input("Enter your new username: ")
                 new_password=get_input("Enter your new Password: ")
-                if not username_validation(username):
+                
+                if not username_validation(new_username):
                     print("This name is taken.")
-                elif not password_validation(password):
-                    print("Password's lenght should be atleast 8 with numbers and special chars")
+                elif not password_validation(new_password):
+                    print("Password's lenght should be atleast 8 with numbers, UPPERcase alpha, lowercase alpha and special chars")
                 else:
                     user_data[user_index].username=new_username
                     user_data[user_index].password=new_password
                     with open (user_file,"wb") as file:
                         pickle.dump(user_data,file)
-
+                    with open(contact_file,"rb") as file1:
+                        info=pickle.load(file1)
+                        for index,obj in enumerate(info) :
+                            if obj.user==username:
+                                info[index].user=new_username
+                        with open (contact_file,"wb") as file2:
+                            pickle.dump(info,file2)
                     print("Account modified successfully")
                 
         else:
