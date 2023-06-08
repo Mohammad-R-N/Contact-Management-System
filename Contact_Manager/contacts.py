@@ -107,7 +107,7 @@ def search_contact_by_name(user:str):
             print("Not found")    
 
 
-def search_contact_by_email(user:str)->str:
+def search_contact_by_email(user:str):
 
     email=get_input("Enter Contact's email: ")
     contact_file=os.path.join("data","contacts.pickle")
