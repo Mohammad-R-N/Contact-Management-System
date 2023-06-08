@@ -23,8 +23,7 @@ class User:
                     info = pickle.load(file)
                     info.append(cls(username,password))
                     with open(user_file,"wb")as file2:
-                        pickle.dump(info,file2)
-                    
+                        pickle.dump(info,file2) 
             else:
                 with open(user_file,"wb") as file:
                     pickle.dump([cls(username,password)],file)
@@ -34,6 +33,7 @@ class User:
         
     @classmethod
     def authenticate_user(cls,username,password):
+
         user_file=os.path.join("data","users.pickle")
         if os.path.exists(user_file):
             with open(user_file,"rb") as file:
@@ -43,8 +43,10 @@ class User:
         else:
             return False
 
+
     @classmethod
     def modify_user(cls):
+
         username=get_input("Enter your username: ")
         password=get_input("Enter your password: ")
         islogin = User.authenticate_user(username,password)

@@ -4,13 +4,13 @@ import pickle
 import os
 
 def username_validation(username):
+
     user_file=os.path.join("data","users.pickle")
     istaken=False
     isvalid=False
     if os.path.exists(user_file):
         with open (user_file,"rb")as file:
             user_data=pickle.load(file)
-            print("VALIDATION        ",user_data)
             for find in user_data:
                 if find.username == username:
                     istaken = True
@@ -23,17 +23,19 @@ def username_validation(username):
     return bool(isvalid)
 
 
-
 def password_validation(password):
+
     isvalid=re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,}$",password)
     return bool(isvalid)
 
+
 def email_validation(email):
+
     isvalid=re.match(r"^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",email)
     return bool(isvalid)
 
+
 def phone_validation(phone):
+
     isvalid=re.match(r"^(09(\d{9}))$",phone)
     return bool(isvalid)
-
-

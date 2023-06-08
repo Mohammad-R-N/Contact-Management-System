@@ -17,6 +17,7 @@ class Contacts:
 
     @classmethod
     def add_contact(cls,name,email,phone,user,category='',reminder=''):
+
         if not email_validation(email):
             print("Invalid Email!")
         elif not phone_validation(phone):
@@ -36,6 +37,7 @@ class Contacts:
 
     @classmethod
     def edit_contact(cls,name,user):
+
         contact_file=os.path.join("data","contacts.pickle")
         with open(contact_file,"rb") as file:
             info = pickle.load(file)
@@ -63,6 +65,7 @@ class Contacts:
 
     @classmethod
     def delete_contact(cls,name,user):
+
         contact_file=os.path.join("data","contacts.pickle")
         with open(contact_file,"rb") as file:
             info = pickle.load(file)
@@ -73,7 +76,9 @@ class Contacts:
                         pickle.dump(info,file2)                    
 
 
+
 def view_all_contacts(user):
+        
         contact_file=os.path.join("data","contacts.pickle")
         users_contact=[]
         with open(contact_file,"rb") as file:    
@@ -87,6 +92,7 @@ def view_all_contacts(user):
 
 
 def search_contact_by_name(user):
+
     name=get_input("Enter Contact's name: ")
     contact_file=os.path.join("data","contacts.pickle")
     with open(contact_file,"rb") as file:    
@@ -100,6 +106,7 @@ def search_contact_by_name(user):
 
 
 def search_contact_by_email(user):
+
     email=get_input("Enter Contact's email: ")
     contact_file=os.path.join("data","contacts.pickle")
     with open(contact_file,"rb") as file:    
@@ -113,6 +120,7 @@ def search_contact_by_email(user):
 
 
 def category_group(user_category,user):
+        
         contact_file=os.path.join("data","contacts.pickle")
         users_contact_by_category=[]
         with open(contact_file,"rb") as file:    
@@ -126,6 +134,7 @@ def category_group(user_category,user):
 
 
 def export_contacts(user):
+
     contact_file=os.path.join("data","contacts.pickle")
     export_file=os.path.join("exports",f"{user}.csv")
     export_list=[]
@@ -147,7 +156,9 @@ def import_contacts(user):
         for line in csv_read:
             Contacts.add_contact(line[0],line[1],line[2],user,line[3],line[4])
 
+
 def reminder(user):
+
     contact_file=os.path.join("data","contacts.pickle")
     contacts_with_reminder=[]
     with open(contact_file,"rb") as file:    
@@ -164,6 +175,7 @@ def users_contact(uid):
     while True:
         print("1.Add contact\n2.Edit contact\n3.Delete contact\n4.View all contacts\n5.Search contact\n6.Category Group\n7.Reminder\n8.Import contact\n9.Export contact\n10.EXIT")
         user_order=get_input("Enter your order: ")
+
         if user_order=="1":
             print("Add contact panel.")
             name=get_input("Enter Contact's name: ")
@@ -171,6 +183,7 @@ def users_contact(uid):
             phone=get_input("Enter Contact's Phone: ")
             user=uid
             Contacts.add_contact(name,email,phone,user)
+
 
         elif user_order=="2":
             contact_file=os.path.join("data","contacts.pickle")
@@ -181,6 +194,7 @@ def users_contact(uid):
             else:
                 print("Empty")
 
+
         elif user_order=="3":
             contact_file=os.path.join("data","contacts.pickle")
             if os.path.exists(contact_file):
@@ -190,9 +204,11 @@ def users_contact(uid):
             else:
                 print("Empty")
 
+
         elif user_order=="4":
             print("View panel")
             view_all_contacts(uid)
+
 
         elif user_order=="5":
             contact_file=os.path.join("data","contacts.pickle")
@@ -222,6 +238,7 @@ def users_contact(uid):
         elif user_order=="7":
             contact_file=os.path.join("data","contacts.pickle")
             if os.path.exists(contact_file):
+                print("Reminder panel.")
                 reminder(uid)
             else:
                 print("Empty") 
@@ -230,18 +247,20 @@ def users_contact(uid):
         elif user_order=="8":
             contact_file=os.path.join("data","contacts.pickle")
             if os.path.exists(contact_file):
+                print("Import panel.")
                 import_contacts(uid)
             else:
                 print("Empty")             
     
 
-
         elif user_order=="9":
             contact_file=os.path.join("data","contacts.pickle")
             if os.path.exists(contact_file):
+                print("Export panel.")
                 export_contacts(uid)
             else:
                 print("Empty")             
             
+
         elif user_order=="10":
             exit()

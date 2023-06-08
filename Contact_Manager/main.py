@@ -10,6 +10,7 @@ if __name__=="__main__":
         user_order=get_input("Enter your order: ")
 
         if user_order == "1":
+
             username=get_input("Enter your username: ")
             password=get_input("Enter your password: ")
             islogin = User.authenticate_user(username,password)
@@ -20,13 +21,18 @@ if __name__=="__main__":
             else:
                 print("Invalid user information!")
 
+
         elif user_order == "2":
+
             username=get_input("Enter your username: ")
             password=get_input("Enter your password: ")
             User.create_user(username,password)
 
+
         elif user_order == "3":
+            
             User.modify_user()
+
 
         elif user_order =="4":
             exit()
