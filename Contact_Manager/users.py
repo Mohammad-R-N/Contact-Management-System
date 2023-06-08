@@ -57,7 +57,6 @@ class User:
             with open(user_file,"rb") as file:
                 user_data=pickle.load(file)
                 user_index=user_data.index(cls(username,password))
-                print("BEFORE NEW            ",user_data)
                 new_username=get_input("Enter your new username: ")
                 new_password=get_input("Enter your new Password: ")
                 

@@ -30,9 +30,11 @@ class Contacts:
                     info.append(cls(name,email,phone,user,category,reminder))
                     with open(contact_file,"wb")as file2:
                         pickle.dump(info,file2)
+                        print("Contact created")
             else:
                 with open(contact_file,"wb") as file:
                     pickle.dump([cls(name,email,phone,user,category,reminder)],file)
+                    print("Contact created")
 
 
     @classmethod
