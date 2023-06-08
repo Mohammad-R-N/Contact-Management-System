@@ -1,8 +1,8 @@
 from users import *
 from contacts import *
 from utils import *
-import pickle
-import hashlib
+
+
 if __name__=="__main__":
 
     while True:
@@ -16,8 +16,8 @@ if __name__=="__main__":
             islogin = User.authenticate_user(username,password)
             if islogin:
                 print("welcome!")
-                uid=username#+hashlib.sha256(password.encode("utf-8")).hexdigest()[2:6]
-                users_contact(uid)
+                unique_id=username#+hashlib.sha256(password.encode("utf-8")).hexdigest()[2:6]
+                users_contact(unique_id)
             else:
                 print("Invalid user information!")
 
@@ -30,7 +30,7 @@ if __name__=="__main__":
 
 
         elif user_order == "3":
-            
+
             User.modify_user()
 
 

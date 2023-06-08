@@ -3,7 +3,7 @@ from utils import *
 import pickle
 import os
 
-def username_validation(username):
+def username_validation(username:str)->bool:
 
     user_file=os.path.join("data","users.pickle")
     istaken=False
@@ -23,19 +23,19 @@ def username_validation(username):
     return bool(isvalid)
 
 
-def password_validation(password):
+def password_validation(password:str)->bool:
 
     isvalid=re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,}$",password)
     return bool(isvalid)
 
 
-def email_validation(email):
+def email_validation(email:str)->bool:
 
     isvalid=re.match(r"^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",email)
     return bool(isvalid)
 
 
-def phone_validation(phone):
+def phone_validation(phone:str)->bool:
 
     isvalid=re.match(r"^(09(\d{9}))$",phone)
     return bool(isvalid)

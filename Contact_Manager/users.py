@@ -10,7 +10,7 @@ class User:
     password:str
 
     @classmethod
-    def create_user(cls,username,password):
+    def create_user(cls,username:str,password:str) -> None:
 
         if not username_validation(username):
             print("This name is taken.")
@@ -32,7 +32,7 @@ class User:
             
         
     @classmethod
-    def authenticate_user(cls,username,password):
+    def authenticate_user(cls,username:str,password:str) -> bool:
 
         user_file=os.path.join("data","users.pickle")
         if os.path.exists(user_file):
